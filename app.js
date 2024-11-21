@@ -1,5 +1,6 @@
 const createError = require("http-errors");
 const express = require("express");
+const expressLayouts = require("express-ejs-layouts");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -12,6 +13,7 @@ const app = express();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(expressLayouts);
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -35,7 +37,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("error", { title: "Not Found" });
 });
 
 module.exports = app;
