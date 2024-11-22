@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="/stylesheets/account/form.css" />
+<script src="/javascripts/account/form.js"></script>
+<section>
+  <div class="mb-4">
+    <h1>
+      <span>팥붕슈붕과 겨울나기</span>
+      <img src="/images/fishbread.svg" />
+    </h1>
+  </div>
+  <form class="needs-validation" novalidate>
+    <div class="mb-5">
+      <label for="phone" class="form-label">전화번호</label>
+      <input
+        type="text"
+        class="form-control"
+        id="phone"
+        placeholder="숫자만 입력해주세요"
+        required
+        oninput="onInputPhone(this)"
+        pattern="\d{2,3}-\d{3,4}-\d{4}"
+      />
+      <div class="invalid-feedback">전화번호를 입력해주세요</div>
+    </div>
+    <div class="mb-5">
+      <label for="password" class="form-label">비밀번호</label>
+      <input type="password" class="form-control" id="password" required />
+      <div class="invalid-feedback">비밀번호를 입력해주세요</div>
+    </div>
+    <div class="footer">
+      <button type="submit" class="btn btn-primary">로그인하기</button>
+      <span>
+        아직 회원이 아니신가요? <a href="/account/signup">가입하기</a>
+      </span>
+    </div>
+  </form>
+</section>

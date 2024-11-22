@@ -1,0 +1,45 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+section {
+  width: min(90%, 30rem);
+  margin: auto;
+}
+
+h1 {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+h1 span {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+h1 img {
+  height: 2.8rem;
+  margin: auto 0;
+  animation: moving-fish 1s linear infinite alternate;
+}
+
+@keyframes moving-fish {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(1rem, 0);
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer span {
+  font-size: 1rem;
+  margin-top: auto;
+}
