@@ -5,3 +5,49 @@
   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=52eb652c4e003ce3bf55605828fe4ebd"
 ></script>
 <div id="map"></div>
+<div
+  class="modal fade"
+  id="permissionModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          처음 오셨군요!
+        </h1>
+      </div>
+      <div class="modal-body">
+        팥붕슈붕을 원활히 이용하기 위해서는 사용자의 위치가 필요해요. 사용자의
+        위치는 지도에 현위치를 표시하기 위해서만 사용되며, 팥붕슈붕은 사용자의
+        위치를 수집하거나 저장하지 않으니 안심하셔도 좋아요.<br /><br />위치를
+        동의하는지 묻는 경고가 나온다면 동의한다는 내용의 버튼을 눌러주세요.
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          onclick="presentLocation(map)"
+        >
+          네, 알겠어요!
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="toast align-items-center text-bg-danger border-0"
+  id="locErrToast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+>
+  <div class="d-flex">
+    <div class="toast-body">사용자의 위치 정보를 불러올 수 없어요</div>
+  </div>
+</div>

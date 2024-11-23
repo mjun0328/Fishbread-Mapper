@@ -2,3 +2,10 @@
   width: 100vw;
   height: 100vh;
 }
+
+.toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 100;
+}
