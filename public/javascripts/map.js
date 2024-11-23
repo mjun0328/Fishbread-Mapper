@@ -6,13 +6,13 @@ window.addEventListener("load", () => {
   });
   map.setMaxLevel(5);
 
-  // baker's location
+  // store's location
   const positions = [
     [37.63528, 127.07666],
     [37.62941, 127.08155],
   ];
 
-  const bakerImage = new kakao.maps.MarkerImage(
+  const storeImg = new kakao.maps.MarkerImage(
     "/images/marker.png",
     new kakao.maps.Size(64, 69),
     {
@@ -24,7 +24,7 @@ window.addEventListener("load", () => {
     new kakao.maps.Marker({
       map,
       position: new kakao.maps.LatLng(position[0], position[1]),
-      image: bakerImage,
+      image: storeImg,
     });
   });
 
