@@ -101,63 +101,12 @@ class StoreViewer {
   }
 
   show = (marker) => {
-    const node = `<div class="info">
-      <div class="title">
-        <strong>공릉역 1번 출구</strong>
-        <button type="button" class="btn-close" aria-label="Close" onclick="storeViewer.hide()"></button>
-      </div>
-      <div id="carouselExample" class="carousel slide mt-1 mb-2">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="/images/image.png" class="d-block w-100" />
-          </div>
-          <div class="carousel-item">
-            <img src="/images/image.png" class="d-block w-100" />
-          </div>
-          <div class="carousel-item">
-            <img src="/images/image.png" class="d-block w-100" />
-          </div>
-        </div>
-        <button
-          class="carousel-control-prev"
-          type="button"
-          data-bs-target="#carouselExample"
-          data-bs-slide="prev"
-        >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button
-          class="carousel-control-next"
-          type="button"
-          data-bs-target="#carouselExample"
-          data-bs-slide="next"
-        >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
-      </div>
-      <div class="meta">
-        <div>
-          <img src="/images/near.svg" />
-          <span>124m</span>
-        </div>
-        <div>
-          <img src="/images/star.svg" />
-          <span>4.5 (92)</span>
-        </div>
-      </div>
-      <button type="button" class="more btn btn-primary mt-4 mb-2">
-        이 가게의 5개 리뷰 보기
-      </button>
-      <div class="link">
-        <button type="button" class="btn btn-secondary">리뷰 남기기</button>
-        <button type="button" class="btn">잘못된 정보 알려주기</button>
-      </div>
-    </div>`;
+    const elem = document.createElement("div");
+    elem.classList = "store";
+    elem.innerHTML = document.getElementById("storeInfoTemplate").innerHTML;
 
     const infoWindow = new kakao.maps.InfoWindow({
-      content: node,
+      content: elem,
     });
 
     this.hide();

@@ -1,0 +1,50 @@
+.store {
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  width: 20rem;
+}
+
+.store .title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.store .title strong {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.store .carousel {
+  border-radius: 0.3rem;
+  overflow: hidden;
+}
+
+.store .carousel-item {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.store .meta {
+  display: flex;
+  gap: 2rem;
+}
+
+.store .meta div {
+  display: inline-flex;
+  gap: 0.2rem;
+}
+
+.store .meta div img {
+  height: 1rem;
+  margin: auto 0;
+}
+
+.store .meta div span {
+  font-size: 1rem;
+  width: 4rem;
+}
+
+.store .more {
+  width: 100%;
+}
