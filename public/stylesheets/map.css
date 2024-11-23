@@ -9,3 +9,54 @@
   bottom: 1rem;
   z-index: 100;
 }
+
+.info {
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  width: 20rem;
+}
+
+.info .title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info .title strong {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.info .carousel {
+  border-radius: 0.3rem;
+  overflow: hidden;
+}
+
+.info .carousel-item {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.info .meta {
+  display: flex;
+  gap: 2rem;
+}
+
+.info .meta div {
+  display: inline-flex;
+  gap: 0.2rem;
+}
+
+.info .meta div img {
+  height: 1rem;
+  margin: auto 0;
+}
+
+.info .meta div span {
+  font-size: 1rem;
+  width: 4rem;
+}
+
+.info .more {
+  width: 100%;
+}
