@@ -5,6 +5,10 @@
   width: 20rem;
 }
 
+.store.template {
+  display: none;
+}
+
 .store .title {
   display: flex;
   justify-content: space-between;
