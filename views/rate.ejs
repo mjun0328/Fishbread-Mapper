@@ -1,0 +1,107 @@
+<link rel="stylesheet" href="/stylesheets/rate.css" />
+<script src="/javascripts/rate.js"></script>
+<div
+  class="modal fade rate"
+  id="rateModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">가게 평가하기</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-4 star">
+          <button onclick="setRate(1)">
+            <img src="/images/rate/star_filled.svg" />
+          </button>
+          <button onclick="setRate(2)">
+            <img src="/images/rate/star_filled.svg" />
+          </button>
+          <button onclick="setRate(3)">
+            <img src="/images/rate/star_filled.svg" />
+          </button>
+          <button onclick="setRate(4)">
+            <img src="/images/rate/star_empty.svg" />
+          </button>
+          <button onclick="setRate(5)">
+            <img src="/images/rate/star_empty.svg" />
+          </button>
+          <input id="rate_star_value" type="hidden" value="3" />
+        </div>
+        <div>
+          <label class="form-label">
+            이 가게에 방문하신 생생한 후기를 들려주세요
+          </label>
+          <textarea
+            id="rate_content"
+            class="form-control"
+            rows="3"
+            placeholder="선택사항"
+          ></textarea>
+          <div id="passwordHelpBlock" class="form-text">(13/100)</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-target="#rateConfirmModal"
+          data-bs-toggle="modal"
+        >
+          평가 완료하기
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade rate"
+  id="rateConfirmModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          평가를 제출할까요?
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        제출한 평가는 수정할 수 없고, 가게마다 하루에 최대 한 번만 평가할 수
+        있어요. 정말 평가를 제출할까요?
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-target="#rateModal"
+          data-bs-toggle="modal"
+        >
+          돌아갈래요
+        </button>
+        <button type="button" class="btn btn-primary">네 제출할게요</button>
+      </div>
+    </div>
+  </div>
+</div>

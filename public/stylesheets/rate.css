@@ -1,0 +1,17 @@
+.rate .star {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.rate .star button {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+}
+
+.rate .form-text {
+  text-align: right;
+}

@@ -59,7 +59,15 @@
     이 가게의 5개 리뷰 보기
   </button>
   <div class="link">
-    <button type="button" class="btn btn-secondary">리뷰 남기기</button>
+    <button
+      type="button"
+      class="btn btn-secondary"
+      data-bs-target="#rateModal"
+      data-bs-toggle="modal"
+      onclick="resetRate()"
+    >
+      리뷰 남기기
+    </button>
     <button type="button" class="btn">잘못된 정보 알려주기</button>
   </div>
 </div>
