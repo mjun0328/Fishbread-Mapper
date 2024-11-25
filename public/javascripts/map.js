@@ -34,7 +34,7 @@ const initMap = () => {
 
 const pinStore = (positions) => {
   const storeImg = new kakao.maps.MarkerImage(
-    "/images/marker.png",
+    "/images/map/marker.png",
     new kakao.maps.Size(64, 69),
     {
       offset: new kakao.maps.Point(32, 69),
@@ -69,7 +69,7 @@ const presentLocation = (map, isInit) => {
         map,
         position: new kakao.maps.LatLng(latitude, longitude),
         image: new kakao.maps.MarkerImage(
-          "/images/location.png",
+          "/images/map/location.png",
           new kakao.maps.Size(20, 20),
           {
             offset: new kakao.maps.Point(10, 10),

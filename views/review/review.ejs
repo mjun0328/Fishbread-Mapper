@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="/stylesheets/review.css" />
+<link rel="stylesheet" href="/stylesheets/review/review.css" />
+<link rel="stylesheet" href="/stylesheets/review/content.css">
 <div
   class="modal fade"
   id="reviewModal"
@@ -30,7 +31,7 @@
             ];
 
             reviews.forEach(review => { %>
-              <%- include('review_content', {content: review, like: 24}) %>
+              <%- include("content", {content: review, like: 24}) %>
             <% });
           %>
           <button type="button" class="btn">리뷰 더보기 (20/46)</button>
