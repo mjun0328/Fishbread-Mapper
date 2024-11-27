@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="/stylesheets/report.css" />
+<script src="/javascripts/report.js"></script>
+<div
+  class="modal fade report"
+  id="reportModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">잘못된 정보를 알려주세요</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <textarea
+          class="form-control"
+          id="reportTextarea"
+          rows="10"
+          placeholder="어떤 정보가 잘못되었는지 알려주세요."
+        ></textarea>
+        <div class="form-text">(13/300)</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          취소
+        </button>
+        <button type="button" class="btn btn-primary">제출하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="toast align-items-center text-bg-primary border-0"
+  id="reportToast"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+>
+  <div class="d-flex">
+    <div class="toast-body">
+      잘못된 점을 알려주셔서 감사해요. 빠르게 검토해볼게요
+    </div>
+  </div>
+</div>
