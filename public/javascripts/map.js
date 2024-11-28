@@ -1,4 +1,5 @@
 let storeViewer, map;
+let presentLocation = null;
 
 window.addEventListener("load", () => {
   initMap();
@@ -14,7 +15,7 @@ window.addEventListener("load", () => {
   const onChangePermission = (state) => {
     if (state === "prompt") $("#permissionModal").modal("show");
     else if (state === "granted") {
-      presentLocation(map, true);
+      updatePresentLocation(map, true);
     }
   };
 
@@ -56,30 +57,12 @@ const pinStore = (positions) => {
   });
 };
 
-const presentLocation = (map, isInit) => {
+const updatePresentLocation = (map, isInit) => {
   let marker = null;
 
   const success = (pos) => {
-    const { latitude, longitude } = pos.coords;
-
-    if (isInit) map.setCenter(new kakao.maps.LatLng(latitude, longitude));
-
-    if (marker === null) {
-      marker = new kakao.maps.Marker({
-        map,
-        position: new kakao.maps.LatLng(latitude, longitude),
-        image: new kakao.maps.MarkerImage(
-          "/images/map/location.png",
-          new kakao.maps.Size(20, 20),
-          {
-            offset: new kakao.maps.Point(10, 10),
-          }
-        ),
-        clickable: false,
-      });
-    } else {
-      marker.setPosition(new kakao.maps.LatLng(latitude, longitude));
-    }
+    presentLocation = pos;
+    marker = setMarkerPresentLocation(map, marker, pos, isInit);
   };
 
   const error = (err) => {
@@ -92,6 +75,31 @@ const presentLocation = (map, isInit) => {
     timeout: 5000,
     enableHighAccuracy: false,
   });
+};
+
+const setMarkerPresentLocation = (map, marker, pos, isInit) => {
+  const { latitude, longitude } = pos.coords;
+
+  if (isInit) map.setCenter(new kakao.maps.LatLng(latitude, longitude));
+
+  if (marker === null) {
+    marker = new kakao.maps.Marker({
+      map,
+      position: new kakao.maps.LatLng(latitude, longitude),
+      image: new kakao.maps.MarkerImage(
+        "/images/map/location.png",
+        new kakao.maps.Size(20, 20),
+        {
+          offset: new kakao.maps.Point(10, 10),
+        }
+      ),
+      clickable: false,
+    });
+  } else {
+    marker.setPosition(new kakao.maps.LatLng(latitude, longitude));
+  }
+
+  return marker;
 };
 
 class StoreViewer {

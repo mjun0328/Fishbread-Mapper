@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="/stylesheets/register.css" />
+<script src="/javascripts/register.js"></script>
+<div
+  class="modal fade report"
+  id="registerModal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">새 가게 등록하기</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-4">
+          <label for="reportName" class="form-label"
+            >대략적인 가게 위치를 알려주세요</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="reportName"
+            placeholder="예: 팥붕역 2번 출구, 슈붕은행 앞"
+          />
+        </div>
+        <div>
+          <label class="form-label"
+            >붕어빵 가게의 위치를 지도를 눌러 알려주세요</label
+          >
+          <div id="registerMap"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          취소
+        </button>
+        <button type="button" class="btn btn-primary">제출하기</button>
+      </div>
+    </div>
+  </div>
+</div>
