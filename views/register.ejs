@@ -28,9 +28,11 @@
           <input
             type="text"
             class="form-control"
-            id="reportName"
+            id="registerName"
             placeholder="예: 팥붕역 2번 출구, 슈붕은행 앞"
+            oninput="register.setName(this.value)"
           />
+          <div id="registerNameCnt" class="form-text"></div>
         </div>
         <div>
           <label class="form-label"

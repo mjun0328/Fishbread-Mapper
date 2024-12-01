@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/stylesheets/map.css" />
 <script src="/javascripts/map.js"></script>
+<script src="/javascripts/location.js"></script>
 <script
   type="text/javascript"
   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%= apikey %>"
@@ -29,7 +30,7 @@
           type="button"
           class="btn btn-primary"
           data-bs-dismiss="modal"
-          onclick="presentLocation(map)"
+          onclick="presentLocation.start()"
         >
           네, 알겠어요!
         </button>

@@ -1,38 +1,85 @@
+let register;
+
 window.addEventListener("load", () => {
-  document
-    .getElementById("registerModal")
-    .addEventListener("shown.bs.modal", registerInitMap);
+  const modal = document.getElementById("registerModal");
+
+  modal.addEventListener("shown.bs.modal", () => {
+    if (presentLocation) register = new Register();
+  });
+  modal.addEventListener("hidden.bs.modal", () => {
+    register.setName("");
+    register = null;
+  });
 });
 
-const registerInitMap = () => {
-  const { latitude, longitude } = presentLocation.coords;
-  const map = new kakao.maps.Map(document.getElementById("registerMap"), {
-    center: new kakao.maps.LatLng(latitude, longitude),
-    level: 1,
-  });
+class Register {
+  constructor() {
+    this.locMarker = null;
+    this.setName("");
 
-  const marker = new kakao.maps.Marker({
-    map,
-    position: map.getCenter(),
-    image: new kakao.maps.MarkerImage(
-      "/images/map/marker.png",
-      new kakao.maps.Size(64, 69),
-      {
-        offset: new kakao.maps.Point(32, 69),
-      }
-    ),
-    clickable: false,
-  });
+    this.map = new kakao.maps.Map(document.getElementById("registerMap"), {
+      center: new kakao.maps.LatLng(
+        presentLocation.latitude,
+        presentLocation.longitude
+      ),
+      level: 1,
+    });
 
-  kakao.maps.event.addListener(map, "click", function (evt) {
-    const latlng = evt.latLng;
-    marker.setPosition(latlng);
-  });
+    this.marker = new kakao.maps.Marker({
+      map: this.map,
+      position: this.map.getCenter(),
+      image: new kakao.maps.MarkerImage(
+        "/images/map/marker.png",
+        new kakao.maps.Size(64, 69),
+        {
+          offset: new kakao.maps.Point(32, 69),
+        }
+      ),
+      clickable: false,
+    });
 
-  let location = null;
-  location = setMarkerPresentLocation(map, location, presentLocation, true);
-};
+    kakao.maps.event.addListener(this.map, "click", (evt) => {
+      const latlng = evt.latLng;
+      this.marker.setPosition(latlng);
+    });
 
-const resetRegister = () => {
-  document.getElementById("reportName").value = "";
-};
+    this.markLocation();
+    window.addEventListener("loc-update", () => {
+      this.markLocation();
+    });
+  }
+
+  markLocation = () => {
+    const { latitude, longitude, activation } = presentLocation;
+    if (!activation) return;
+
+    if (!this.locMarker) {
+      this.locMarker = new kakao.maps.Marker({
+        map: this.map,
+        position: new kakao.maps.LatLng(latitude, longitude),
+        image: new kakao.maps.MarkerImage(
+          "/images/map/location.png",
+          new kakao.maps.Size(20, 20),
+          {
+            offset: new kakao.maps.Point(10, 10),
+          }
+        ),
+        clickable: false,
+      });
+    } else {
+      this.locMarker.setPosition(new kakao.maps.LatLng(latitude, longitude));
+    }
+  };
+
+  reset = () => {
+    this.comment = "";
+  };
+
+  setName = (name) => {
+    this.name = name;
+    document.getElementById("registerName").value = this.name;
+    document.getElementById(
+      "registerNameCnt"
+    ).innerText = `(${this.name.length}/100)`;
+  };
+}

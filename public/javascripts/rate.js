@@ -1,21 +1,45 @@
-const resetRate = () => {
-  setRate(3);
-  document.getElementById("rate_content").value = "";
-};
+let rate;
 
-const setRate = (value) => {
-  const input = document.getElementById("rate_star_value");
-  input.value = value;
+window.addEventListener("load", () => {
+  rate = new Rate();
 
-  const stars = document
-    .getElementsByClassName("rate")[0]
-    .getElementsByClassName("star")[0]
-    .getElementsByTagName("button");
+  const modal = document.getElementById("rateModal");
+  modal.addEventListener("show.bs.modal", rate.reset);
+});
 
-  for (let i = 0; i < 5; i++) {
-    stars[i].getElementsByTagName("img")[0].src =
-      i < value
-        ? "/images/rate/star_filled.svg"
-        : "/images/rate/star_empty.svg";
+class Rate {
+  constructor() {
+    this.rate = 3;
+    this.comment = "";
   }
-};
+
+  reset = () => {
+    this.setRate(3);
+    this.setComment("");
+  };
+
+  setRate = (value) => {
+    this.rate = value;
+
+    const stars = document
+      .getElementsByClassName("rate")[0]
+      .getElementsByClassName("star")[0]
+      .getElementsByTagName("button");
+
+    for (let i = 0; i < 5; i++) {
+      stars[i].getElementsByTagName("img")[0].src =
+        i < this.rate
+          ? "/images/rate/star_filled.svg"
+          : "/images/rate/star_empty.svg";
+    }
+  };
+
+  setComment = (value) => {
+    this.comment = value;
+
+    document.getElementById("rateComment").value = this.comment;
+    document.getElementById(
+      "rateCommentCnt"
+    ).innerText = `(${this.comment.length}/100)`;
+  };
+}

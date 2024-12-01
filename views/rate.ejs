@@ -21,19 +21,19 @@
       </div>
       <div class="modal-body">
         <div class="mb-4 star">
-          <button onclick="setRate(1)">
+          <button onclick="rate.setRate(1)">
             <img src="/images/rate/star_filled.svg" />
           </button>
-          <button onclick="setRate(2)">
+          <button onclick="rate.setRate(2)">
             <img src="/images/rate/star_filled.svg" />
           </button>
-          <button onclick="setRate(3)">
+          <button onclick="rate.setRate(3)">
             <img src="/images/rate/star_filled.svg" />
           </button>
-          <button onclick="setRate(4)">
+          <button onclick="rate.setRate(4)">
             <img src="/images/rate/star_empty.svg" />
           </button>
-          <button onclick="setRate(5)">
+          <button onclick="rate.setRate(5)">
             <img src="/images/rate/star_empty.svg" />
           </button>
           <input id="rate_star_value" type="hidden" value="3" />
@@ -43,12 +43,13 @@
             이 가게에 방문하신 생생한 후기를 들려주세요
           </label>
           <textarea
-            id="rate_content"
+            id="rateComment"
             class="form-control"
             rows="3"
             placeholder="선택사항"
+            oninput="rate.setComment(this.value)"
           ></textarea>
-          <div id="passwordHelpBlock" class="form-text">(13/100)</div>
+          <div id="rateCommentCnt" class="form-text"></div>
         </div>
       </div>
       <div class="modal-footer">

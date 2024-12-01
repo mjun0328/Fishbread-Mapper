@@ -6,6 +6,10 @@ class StoreViewer {
     this.elem = null;
     this.window = null;
     this.store = null;
+
+    window.addEventListener("loc-update", () => {
+      this.setDistance();
+    });
   }
 
   show = async (marker, storeId) => {
@@ -61,8 +65,8 @@ class StoreViewer {
     };
 
     const location = {
-      latitude: presentLocation.coords.latitude,
-      longitude: presentLocation.coords.longitude,
+      latitude: presentLocation.latitude,
+      longitude: presentLocation.longitude,
     };
 
     const polyline = new kakao.maps.Polyline({

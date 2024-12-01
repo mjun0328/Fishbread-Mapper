@@ -23,11 +23,12 @@
       <div class="modal-body">
         <textarea
           class="form-control"
-          id="reportTextarea"
+          id="reportContent"
           rows="10"
           placeholder="어떤 정보가 잘못되었는지 알려주세요."
+          oninput="report.setContent(this.value)"
         ></textarea>
-        <div class="form-text">(13/300)</div>
+        <div id="reportContentCnt" class="form-text"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
