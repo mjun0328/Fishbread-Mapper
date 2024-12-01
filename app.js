@@ -4,12 +4,29 @@ const expressLayouts = require("express-ejs-layouts");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
+const session = require("express-session");
 require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const accountRouter = require("./routes/account");
 
 const app = express();
+
+app.use(
+  session({
+    name: "session",
+    secret: process.env.SESSION_KEY,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+if (process.env.ENV === "production") {
+  app.set("trust proxy", 1);
+  sess.cookie.secure = true;
+}
+
+require("./database");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
