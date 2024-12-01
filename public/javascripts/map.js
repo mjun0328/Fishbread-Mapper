@@ -1,15 +1,17 @@
-let storeViewer, map;
+let map;
 let presentLocation = null;
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   initMap();
 
-  // pin store's location
-  const positions = [
-    [37.63528, 127.07666],
-    [37.62941, 127.08155],
-  ];
-  pinStore(positions);
+  // pin stores on the map
+  await pinStores();
+  kakao.maps.event.addListener(map, "dragend", async () => await pinStores());
+  kakao.maps.event.addListener(
+    map,
+    "zoom_changed",
+    async () => await pinStores()
+  );
 
   // request user's location permission
   const onChangePermission = (state) => {
@@ -33,7 +35,13 @@ const initMap = () => {
   map.setMaxLevel(5);
 };
 
-const pinStore = (positions) => {
+const pinStores = async () => {
+  const { ha: west, oa: east, qa: south, pa: north } = map.getBounds();
+  const response = await fetch(
+    `/api/store?east=${east}&west=${west}&south=${south}&north=${north}`
+  );
+  const stores = await response.json();
+
   const storeImg = new kakao.maps.MarkerImage(
     "/images/map/marker.png",
     new kakao.maps.Size(64, 69),
@@ -41,18 +49,17 @@ const pinStore = (positions) => {
       offset: new kakao.maps.Point(32, 69),
     }
   );
+  if (!storeViewer) storeViewer = new StoreViewer(map, stores);
 
-  storeViewer = new StoreViewer(map);
-
-  positions.forEach((position) => {
+  stores.forEach((store) => {
     const marker = new kakao.maps.Marker({
       map,
-      position: new kakao.maps.LatLng(position[0], position[1]),
+      position: new kakao.maps.LatLng(store.latitude, store.longitude),
       image: storeImg,
     });
 
-    kakao.maps.event.addListener(marker, "click", () => {
-      storeViewer.show(marker);
+    kakao.maps.event.addListener(marker, "click", async () => {
+      await storeViewer.show(marker, store.id);
     });
   });
 };
@@ -63,6 +70,7 @@ const updatePresentLocation = (map, isInit) => {
   const success = (pos) => {
     presentLocation = pos;
     marker = setMarkerPresentLocation(map, marker, pos, isInit);
+    if (storeViewer) storeViewer.setDistance();
   };
 
   const error = (err) => {
@@ -101,29 +109,3 @@ const setMarkerPresentLocation = (map, marker, pos, isInit) => {
 
   return marker;
 };
-
-class StoreViewer {
-  constructor(map) {
-    this.map = map;
-    this.store = null;
-  }
-
-  show = (marker) => {
-    const elem = document.createElement("div");
-    elem.classList = "store";
-    elem.innerHTML = document.getElementById("storeInfoTemplate").innerHTML;
-
-    const infoWindow = new kakao.maps.InfoWindow({
-      content: elem,
-    });
-
-    this.hide();
-    this.store = infoWindow;
-    infoWindow.open(this.map, marker);
-  };
-
-  hide = () => {
-    this.store?.close();
-    this.store = null;
-  };
-}

@@ -1,7 +1,8 @@
 <link rel="stylesheet" href="/stylesheets/store.css" />
+<script src="/javascripts/store.js"></script>
 <div id="storeInfoTemplate" class="store template">
   <div class="title">
-    <strong>공릉역 1번 출구</strong>
+    <strong class="store-name"></strong>
     <button
       type="button"
       class="btn-close"
@@ -10,23 +11,21 @@
     ></button>
   </div>
   <div class="meta">
-    <div>
+    <div class="store-distance">
       <img src="/images/store/near.svg" />
-      <span>124m</span>
+      <span></span>
     </div>
     <div>
       <img src="/images/store/star.svg" />
-      <span>4.5 (92)</span>
+      <span class="store-rate"></span>
     </div>
   </div>
   <button
     type="button"
-    class="more btn btn-primary mt-4 mb-2"
+    class="more btn btn-primary mt-4 mb-2 store-review"
     data-bs-toggle="modal"
     data-bs-target="#reviewModal"
-  >
-    이 가게의 5개 리뷰 보기
-  </button>
+  ></button>
   <div class="link">
     <button
       type="button"
