@@ -78,10 +78,10 @@ router.post("/report", forceLogin, async (req, res, next) => {
   const { store, content } = req.body;
   if (!store || !content || typeof content !== "string") {
     return res.status(400).json({ error: "Invalid request" });
-  } else if (content.length < 10 || content.length > 200) {
+  } else if (content.length < 10 || content.length > 500) {
     return res
       .status(400)
-      .json({ error: "Content must be 10-200 characters long" });
+      .json({ error: "Content must be 10-500 characters long" });
   } else if (!/^[a-fA-F0-9]{24}$/.test(store)) {
     return res.status(400).json({ error: "Invalid store ID" });
   } else if (!(await Store.exists({ id: store }))) {

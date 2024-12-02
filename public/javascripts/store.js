@@ -36,6 +36,7 @@ class StoreViewer {
 
   setContent = (store) => {
     if (!store) return;
+    this.id = store.id;
     const elem = document.createElement("div");
     elem.classList = "store";
     elem.innerHTML = document.getElementById("storeInfoTemplate").innerHTML;
