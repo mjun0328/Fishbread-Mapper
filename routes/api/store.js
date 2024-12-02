@@ -5,6 +5,7 @@ const { forceLogin } = require("./middleware");
 const mongoose = require("mongoose");
 const Store = require("../../models/store");
 const StoreReport = require("../../models/storeReport");
+const Review = require("../../models/review");
 
 router.get("/", async (req, res, next) => {
   let { east, west, south, north } = req.query;
@@ -57,20 +58,29 @@ router.post("/", forceLogin, async (req, res, next) => {
   res.status(201).json({ id: newStore.id });
 });
 
-router.get("/:id", async (req, res, next) => {
-  const { id } = req.params;
-  if (!/^[a-fA-F0-9]{24}$/.test(id)) {
-    return res.status(400).json({ error: "Invalid store ID" });
+router.get("/:store", async (req, res, next) => {
+  const { store } = req.params;
+  if (!/^[a-fA-F0-9]{24}$/.test(store)) {
+    return res.status(400).json({ error: "Invalid request" });
   }
 
-  const store = await Store.findOne({ id });
-  if (!store) return res.status(404).json({ error: "Store not found" });
+  const storeDoc = await Store.findOne({ id: store });
+  if (!storeDoc) return res.status(404).json({ error: "Store not found" });
+
+  const reviews = await Review.find({ store });
+  const avgRating = reviews.length
+    ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+    : 0;
 
   res.json({
-    id: store.id,
-    name: store.name,
-    latitude: store.latitude,
-    longitude: store.longitude,
+    id: storeDoc.id,
+    name: storeDoc.name,
+    latitude: storeDoc.latitude,
+    longitude: storeDoc.longitude,
+    review: {
+      count: reviews.length,
+      average: avgRating,
+    },
   });
 });
 
