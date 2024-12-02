@@ -23,8 +23,7 @@
   <button
     type="button"
     class="more btn btn-primary mt-4 mb-2 store-review"
-    data-bs-toggle="modal"
-    data-bs-target="#reviewModal"
+    onclick="review = new Review(storeViewer.store)"
   ></button>
   <div class="link">
     <button
@@ -35,7 +34,11 @@
     >
       리뷰 남기기
     </button>
-    <button type="button" class="btn" onclick="report.show(storeViewer.id)">
+    <button
+      type="button"
+      class="btn"
+      onclick="report.show(storeViewer.store.id)"
+    >
       잘못된 정보 알려주기
     </button>
   </div>

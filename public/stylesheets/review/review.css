@@ -1,9 +1,0 @@
-.review {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.review button {
-  font-size: 0.9rem;
-}

@@ -15,8 +15,9 @@ class StoreViewer {
   show = async (marker, storeId) => {
     const response = await fetch(`/api/store/${storeId}`);
     const store = await response.json();
+    this.store = store;
 
-    this.setContent(store);
+    this.setContent();
     this.setDistance();
 
     const infoWindow = new kakao.maps.InfoWindow({
@@ -34,16 +35,29 @@ class StoreViewer {
     this.window = null;
   };
 
-  setContent = (store) => {
-    if (!store) return;
-    this.id = store.id;
+  setContent = () => {
+    const store = this.store;
+
     const elem = document.createElement("div");
     elem.classList = "store";
     elem.innerHTML = document.getElementById("storeInfoTemplate").innerHTML;
     elem.getElementsByClassName("store-name")[0].innerText = store.name;
-    elem.getElementsByClassName("store-rate")[0].innerText = "4.5 (102)";
-    elem.getElementsByClassName("store-review")[0].innerText =
-      "이 가게의 5개 리뷰 보기";
+
+    const review = store.review;
+    elem.getElementsByClassName("store-rate")[0].innerText =
+      review.count === 0
+        ? "리뷰가 없어요"
+        : `${review.average} (${review.count})`;
+
+    const reviewBtn = elem.getElementsByClassName("store-review")[0];
+    if (review.count === 0) {
+      reviewBtn.innerText = "이 가게에는 아직 리뷰가 달리지 않았어요";
+      reviewBtn.disabled = true;
+    } else {
+      reviewBtn.innerText = `이 가게의 ${store.review.count}개 리뷰 보기`;
+      reviewBtn.disabled = false;
+    }
+
     const coord = elem.getElementsByClassName("store-distance")[0];
     coord.setAttribute("data-latitude", store.latitude);
     coord.setAttribute("data-longitude", store.longitude);
@@ -52,13 +66,12 @@ class StoreViewer {
   };
 
   setDistance = () => {
-    if (!this.elem) return;
-    else if (!presentLocation) {
-      this.elem.style.display = "none";
+    const elem = this.elem.getElementsByClassName("store-distance")[0];
+
+    if (!presentLocation.activation) {
+      elem.style.display = "none";
       return;
     }
-
-    const elem = this.elem.getElementsByClassName("store-distance")[0];
 
     const store = {
       latitude: parseFloat(elem.dataset.latitude),

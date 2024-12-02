@@ -1,0 +1,57 @@
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.review-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.review-content p {
+  font-size: 1rem;
+  background-color: #f3f3f3;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.2rem;
+  margin: 0;
+}
+
+.review-content div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.review-content div button {
+  display: inline-flex;
+  gap: 0.1rem;
+  padding: 0.1rem 0.4rem 0.1rem 0.1rem;
+  margin: -0.1rem -0.4rem -0.1rem 0;
+  border: 0;
+  border-radius: 0.2rem;
+  outline: 0;
+  background-color: transparent;
+  transition: 0.2s;
+}
+
+.review-content div button:hover {
+  background-color: #efefef;
+}
+
+.review-content div button img {
+  height: 1rem;
+  margin: auto 0;
+}
+
+.review-content div span {
+  font-size: 0.9rem;
+  color: #676767;
+  margin: auto 0;
+}
+
+.review-btn {
+  width: 100%;
+  font-size: 0.9rem;
+}
