@@ -14,8 +14,13 @@ window.addEventListener("load", () => {
 
 class Register {
   constructor() {
-    this.locMarker = null;
+    this.name = "";
+    this.latitude = 0;
+    this.longitude = 0;
+    this.pending = false;
     this.setName("");
+
+    this.locMarker = null;
 
     this.map = new kakao.maps.Map(document.getElementById("registerMap"), {
       center: new kakao.maps.LatLng(
@@ -40,6 +45,9 @@ class Register {
 
     kakao.maps.event.addListener(this.map, "click", (evt) => {
       const latlng = evt.latLng;
+      this.latitude = latlng.getLat();
+      this.longitude = latlng.getLng();
+
       this.marker.setPosition(latlng);
     });
 
@@ -71,15 +79,40 @@ class Register {
     }
   };
 
-  reset = () => {
-    this.comment = "";
-  };
-
   setName = (name) => {
-    this.name = name;
+    this.name = name.substring(0, 20);
     document.getElementById("registerName").value = this.name;
     document.getElementById(
       "registerNameCnt"
-    ).innerText = `(${this.name.length}/100)`;
+    ).innerText = `(${this.name.length}/20)`;
+  };
+
+  submit = async () => {
+    if (this.pending) return;
+    if (this.name.trim().length < 2) {
+      alert("가게 위치를 2글자 이상 입력해주세요");
+      return;
+    }
+    this.pending = true;
+    const response = await fetch(`/api/store`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: this.name,
+        latitude: this.latitude,
+        longitude: this.longitude,
+      }),
+    });
+    if (response.status === 201) {
+      maps.pinStores();
+      $("#registerModal").modal("hide");
+    } else if (response.status === 401) {
+      location.href = "/account/signin";
+    } else {
+      alert("알 수 없는 오류가 발생했어요");
+      this.pending = false;
+    }
   };
 }
