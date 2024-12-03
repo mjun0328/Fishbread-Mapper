@@ -3,7 +3,9 @@
   <button>
     <img src="/images/floating/user.svg" />
   </button>
-  <button data-bs-target="#registerModal" data-bs-toggle="modal">
+  <button <% if(isLogin) { %>
+    data-bs-target="#registerModal" data-bs-toggle="modal"<% } else {
+    %>onclick="location.href='/account/signin'"<% } %>>
     <img src="/images/floating/register.svg" />
   </button>
 </div>

@@ -6,6 +6,7 @@ router.get("/", function (req, res, next) {
   res.render("index", {
     title: "우리 동네 붕어빵 - 팥붕슈붕",
     apikey: process.env.API_KEY,
+    isLogin: !!req.session.user,
   });
 });
 
