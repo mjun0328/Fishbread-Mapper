@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="/stylesheets/menu.css" />
+<div class="menu">
+  <% if(isLogin) { %>
+  <button>
+    <img src="/images/menu/logout.svg" />
+  </button>
+  <button onclick="location.href='/account/mypage'">
+    <img src="/images/menu/user.svg" />
+  </button>
+  <% }else { %>
+  <button onclick="location.href='/account/signin'">
+    <img src="/images/menu/user.svg" />
+  </button>
+  <% } %>
+  <button <% if(isLogin) { %>
+    data-bs-target="#registerModal" data-bs-toggle="modal"<% } else {
+    %>onclick="location.href='/account/signin'"<% } %>>
+    <img src="/images/menu/register.svg" />
+  </button>
+</div>
