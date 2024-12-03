@@ -43,7 +43,7 @@ router.post("/:store", forceLogin, async (req, res, next) => {
   const { comment, rating } = req.body;
   if (!store || !comment || !rating || typeof comment !== "string") {
     return res.status(400).json({ error: "Invalid request" });
-  } else if (comment.trim().length < 5 || comment.trim().length > 100) {
+  } else if (comment.length > 100) {
     return res
       .status(400)
       .json({ error: "Content must be 5-100 characters long" });

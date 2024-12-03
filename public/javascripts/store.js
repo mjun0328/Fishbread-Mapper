@@ -30,15 +30,24 @@ class StoreViewer {
     infoWindow.open(this.map, marker);
   };
 
+  refresh = async () => {
+    const response = await fetch(`/api/store/${this.store.id}`);
+    const store = await response.json();
+    this.store = store;
+
+    this.setContent(this.elem);
+    this.setDistance();
+  };
+
   hide = () => {
     this.window?.close();
     this.window = null;
   };
 
-  setContent = () => {
+  setContent = (elem) => {
     const store = this.store;
 
-    const elem = document.createElement("div");
+    elem = elem ?? document.createElement("div");
     elem.classList = "store";
     elem.innerHTML = document.getElementById("storeInfoTemplate").innerHTML;
     elem.getElementsByClassName("store-name")[0].innerText = store.name;

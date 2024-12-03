@@ -69,7 +69,11 @@ router.get("/:store", async (req, res, next) => {
 
   const reviews = await Review.find({ store });
   const avgRating = reviews.length
-    ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
+    ? Math.round(
+        (reviews.reduce((sum, review) => sum + review.rating, 0) /
+          reviews.length) *
+          10
+      ) / 10
     : 0;
 
   res.json({
