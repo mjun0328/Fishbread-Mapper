@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const express = require("express");
 const router = express.Router();
+const { forceLogin } = require("./middleware");
 
 const mongoose = require("mongoose");
 const User = require("../../models/user");
@@ -59,6 +60,42 @@ router.post("/signin", async (req, res, next) => {
 router.post("/logout", async (req, res, next) => {
   req.session.user = undefined;
   res.json({ message: "Logout success" });
+});
+
+router.post("/password", forceLogin, async (req, res, next) => {
+  const { old, password } = req.body;
+  if (
+    typeof old !== "string" ||
+    typeof password !== "string" ||
+    password.length < 8
+  )
+    return res.status(400).json({ error: "Invalid request" });
+
+  const user = await User.findOne({ id: req.session.user });
+  if (!user) return res.status(404).json({ error: "User not found" });
+
+  const hashedPassword = crypto
+    .pbkdf2Sync(old, user.salt, getIterationCnt, 64, "sha512")
+    .toString("hex");
+  if (user.password !== hashedPassword)
+    return res.status(401).json({ error: "Password is wrong" });
+
+  const salt = crypto.randomBytes(32).toString("hex");
+  const newHashedPassword = crypto
+    .pbkdf2Sync(password, salt, getIterationCnt, 64, "sha512")
+    .toString("hex");
+
+  await User.updateOne(
+    {
+      id: user.id,
+    },
+    {
+      salt,
+      password: newHashedPassword,
+    }
+  );
+
+  res.json({ message: "Password changed" });
 });
 
 module.exports = router;
