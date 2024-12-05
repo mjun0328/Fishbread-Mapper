@@ -75,6 +75,7 @@ class StoreViewer {
   };
 
   setDistance = () => {
+    if (!this.elem) return;
     const elem = this.elem.getElementsByClassName("store-distance")[0];
 
     if (!presentLocation.activation) {

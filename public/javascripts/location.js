@@ -9,6 +9,7 @@ class Location {
     this.latitude = 37.577734;
     this.longitude = 126.976866;
     this.activation = false;
+    this.isInit = true;
 
     const checkIsActive = (state) => {
       if (state === "prompt") $("#permissionModal").modal("show");
@@ -22,7 +23,7 @@ class Location {
   }
 
   start = () => {
-    const success = (pos) => {
+    const success = async (pos) => {
       this.latitude = pos.coords.latitude;
       this.longitude = pos.coords.longitude;
       this.activation = true;
@@ -35,6 +36,11 @@ class Location {
         },
       });
       window.dispatchEvent(updateEvt);
+
+      if (this.isInit) {
+        this.isInit = false;
+        await maps.pinStores();
+      }
     };
 
     const error = (err) => {
