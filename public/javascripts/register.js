@@ -15,8 +15,8 @@ window.addEventListener("load", () => {
 class Register {
   constructor() {
     this.name = "";
-    this.latitude = 0;
-    this.longitude = 0;
+    this.latitude = presentLocation.latitude;
+    this.longitude = presentLocation.longitude;
     this.pending = false;
     this.setName("");
 
