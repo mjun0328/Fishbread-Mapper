@@ -1,7 +1,8 @@
+<script src="/javascripts/menu.js"></script>
 <link rel="stylesheet" href="/stylesheets/menu.css" />
 <div class="menu">
   <% if(isLogin) { %>
-  <button>
+  <button onclick="logout()">
     <img src="/images/menu/logout.svg" />
   </button>
   <button onclick="location.href='/account/password'">
